@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT-AP University • VTOP Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c2d48 0%, #145da0 50%, #2e8bc0 100%);
+            color: #f7fafc;
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 34px;
+            color: #ffcc00;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .btn-sm {
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: transparent;
+            color: #f7fafc;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-sm:hover {
+            background: rgba(15, 23, 42, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #ffcc00, #f59e0b);
+            color: #1f2933;
+            border: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Main layout */
+        main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 30px 26px;
+            border-radius: 20px;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%),
+                        rgba(15, 23, 42, 0.65);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 118, 110, 0.15);
+            border-radius: 999px;
+            padding: 5px 12px;
+            font-size: 12px;
+            color: #bbf7d0;
+            margin-bottom: 14px;
+        }
+
+        .hero-tag i {
+            font-size: 11px;
+        }
+
+        .hero h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero h2 span {
+            color: #ffcc00;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: #e2e8f0;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 22px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .hero-meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(30, 64, 175, 0.5);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .hero-note {
+            font-size: 12px;
+            color: #cbd5e1;
+            opacity: 0.9;
+        }
+
+        /* Right side */
+        .side-card {
+            background: rgba(15, 23, 42, 0.85);
+            border-radius: 20px;
+            padding: 22px 20px;
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-section-title {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .login-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .login-card {
+            background: rgba(15, 23, 42, 0.65);
+            border-radius: 14px;
+            padding: 14px 14px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .login-card-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .login-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 118, 110, 0.18);
+        }
+
+        .login-card h3 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .login-card p {
+            font-size: 12px;
+            color: #cbd5e1;
+            opacity: 0.9;
+        }
+
+        .login-card i.fa-arrow-up-right-from-square {
+            font-size: 12px;
+            color: #e5e7eb;
+        }
+
+        .login-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        /* Achievements & placements */
+        .achievements {
+            margin-top: 26px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+            gap: 20px;
+        }
+
+        .ach-card {
+            background: rgba(15, 23, 42, 0.9);
+            border-radius: 18px;
+            padding: 18px 18px 14px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .ach-card h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-item {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+
+        .achievement-item::before {
+            content: "•";
+            position: absolute;
+            left: 2px;
+            top: 0;
+            color: #38bdf8;
+        }
+
+        .highlight-box {
+            background: rgba(8, 47, 73, 0.95);
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            border: 1px solid rgba(45, 212, 191, 0.5);
+            box-shadow: 0 12px 26px rgba(8, 47, 73, 0.85);
+        }
+
+        .highlight-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #a5f3fc;
+            margin-bottom: 5px;
+        }
+
+        .highlight-box strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .highlight-text {
+            font-size: 12px;
+            color: #e0f2fe;
+            margin-bottom: 8px;
+        }
+
+        .highlight-link {
+            font-size: 12px;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        .highlight-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 28px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(148, 163, 184, 0.6);
+            font-size: 11px;
+            color: #e2e8f0;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .side-card {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 750px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            nav {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper {
+                padding: 16px 14px 30px;
+            }
+
+            .hero {
+                padding: 22px 18px;
+            }
+
+            .side-card {
+                padding: 18px 16px;
+            }
+
+            .achievements {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-text h1 {
+                font-size: 20px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .btn-sm {
+                font-size: 12px;
+                padding: 7px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-university logo-icon"></i>
+                <div class="logo-text">
+                    <h1>VIT-AP University</h1>
+                    <p>Vellore Institute of Technology Andhra Pradesh</p>
+                </div>
+            </div>
+            <nav>
+                <a href="#vtop">VTOP</a>
+                <a href="#achievements">Achievements</a>
+                <a href="#placements">Placements</a>
+                <a href="#contact">Contact</a>
+                <a href="register.html" class="btn-sm btn-primary">
+                    Register
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main>
+            <!-- Left: Hero -->
+            <section class="hero" id="vtop">
+                <div class="hero-tag">
+                    <i class="fa-solid fa-sparkles"></i>
+                    VTOP • VIT on TOP
+                </div>
+                <h2>One Portal for <span>Academics, Research</span> & Campus Services</h2>
+                <p class="hero-subtitle">
+                    VTOP is the unified digital platform for students, faculty, staff, alumni and parents to access 
+                    academic records, course registration, grades, research updates and campus services.
+                </p>
+
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <i class="fa-solid fa-ranking-star"></i>
+                        Ranked #1 Private University (Outlook 2022–2024)
+                    </div>
+                    <div class="hero-meta-item">
+                        <i class="fa-solid fa-shield-heart"></i>
+                        Outcome Based Education (OBE)
+                    </div>
+                    <div class="hero-meta-item">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        1000+ recruiters on campus
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="register.html" class="btn-sm btn-primary">
+                        Create VTOP Account
+                        <i class="fa-solid fa-user-plus"></i>
+                    </a>
+                    <a href="https://vtop.vitap.ac.in" target="_blank" class="btn-sm">
+                        Visit VTOP Portal
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <p class="hero-note">
+                    Use your registered credentials to access course registration, timetable, grade history, exams, fees 
+                    and more, from anywhere.
+                </p>
+            </section>
+
+            <!-- Right: Quick logins & info -->
+            <aside class="side-card">
+                <div>
+                    <div class="side-section-title">Quick Access</div>
+                    <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 10px;">
+                        Choose your portal to continue. All links open in a new tab.
+                    </p>
+                    <div class="login-grid">
+                        <div class="login-card" onclick="window.open('https://vtop.vitap.ac.in/student', '_blank')">
+                            <div class="login-card-left">
+                                <div class="login-icon">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                </div>
+                                <div>
+                                    <h3>Student Login</h3>
+                                    <p>View timetable, attendance, exams, and results</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+
+                        <div class="login-card" onclick="window.open('https://vtop.vitap.ac.in/employee', '_blank')">
+                            <div class="login-card-left">
+                                <div class="login-icon">
+                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                </div>
+                                <div>
+                                    <h3>Faculty / Staff Login</h3>
+                                    <p>Manage courses, evaluations and student records</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="side-section-title">New to VIT-AP?</div>
+                    <p style="font-size: 12px; color: #cbd5e1; margin-bottom: 8px;">
+                        Start by creating your registration profile to access VTOP services.
+                    </p>
+                    <a href="register.html" class="btn-sm btn-primary">
+                        Register for VIT-AP
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Achievements & Placements -->
+        <section class="achievements" id="achievements">
+            <div class="ach-card">
+                <h3>University Achievements</h3>
+                <ul class="achievement-list">
+                    <li class="achievement-item">
+                        Ranked No. #1 among Private Universities in India (Outlook University Rankings 2022, 2023 & 2024).
+                    </li>
+                    <li class="achievement-item">
+                        Diamond Band (A++) Category in QS I-Gauge 2023 for excellence in Outcome Based Education (OBE).
+                    </li>
+                    <li class="achievement-item">
+                        Recognized as a Nodal Institute for Innovation and Incubation schemes under MSME, Government of India.
+                    </li>
+                    <li class="achievement-item">
+                        VIT-AP TBI Foundation incorporated as a Section 8 Company with MCA, Government of India.
+                    </li>
+                    <li class="achievement-item">
+                        Faculty members listed in the world’s Top 2% Scientists (Stanford University & Elsevier 2022).
+                    </li>
+                </ul>
+            </div>
+
+            <div class="highlight-box" id="placements">
+                <div class="highlight-tag">Placements & Careers</div>
+                <strong>Traditional & Dream Placements for VIT-AP Students</strong>
+                <p class="highlight-text">
+                    MBA and B.Tech students of VIT-AP University gain access to top recruiters across technology, consulting, 
+                    finance, product, and core engineering roles through centralized placements.
+                </p>
+                <a href="https://vitap.ac.in/placements" target="_blank" class="highlight-link">
+                    Explore placement statistics &raquo;
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <p>VIT-AP University, Amaravati, Andhra Pradesh, India</p>
+            <p>© 2023 VIT-AP University. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT-AP University - Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c2d48 0%, #145da0 50%, #2e8bc0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1100px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(rgba(12, 45, 72, 0.9), rgba(20, 93, 160, 0.9)), 
+                        url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            flex: 1.2;
+            background-color: white;
+            padding: 50px 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            color: #ffcc00;
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .left-panel h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .left-panel p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .features i {
+            color: #ffcc00;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h2 {
+            color: #0c2d48;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #0c2d48;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #145da0;
+            font-size: 18px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #145da0;
+            box-shadow: 0 0 0 3px rgba(20, 93, 160, 0.1);
+            background-color: white;
+        }
+
+        .form-control.error {
+            border-color: #e53e3e;
+            background-color: #fff5f5;
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 13px;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .terms input {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+
+        .terms label {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .terms a {
+            color: #145da0;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, #145da0, #0c2d48);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, #0c2d48, #145da0);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(12, 45, 72, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn i {
+            margin-left: 10px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .login-link a {
+            color: #145da0;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .form-summary-error {
+            color: #e53e3e;
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                max-width: 600px;
+            }
+            
+            .left-panel {
+                padding: 40px 30px;
+            }
+            
+            .right-panel {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-panel, .right-panel {
+                padding: 30px 20px;
+            }
+            
+            .form-header h2 {
+                font-size: 28px;
+            }
+            
+            .left-panel h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="logo">
+                <i class="fas fa-university logo-icon"></i>
+                <div class="logo-text">
+                    <h1>VIT-AP University</h1>
+                    <p>Vellore Institute of Technology Andhra Pradesh</p>
+                </div>
+            </div>
+            
+            <h2>Join Our Prestigious Community</h2>
+            <p>Become a part of India's leading private university, recognized for excellence in education, research, and innovation.</p>
+            
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> Ranked #1 among Private Universities in India</li>
+                <li><i class="fas fa-check-circle"></i> Outcome-Based Education (OBE) Focus</li>
+                <li><i class="fas fa-check-circle"></i> World-Class Faculty & Research Facilities</li>
+                <li><i class="fas fa-check-circle"></i> Excellent Placement Record</li>
+                <li><i class="fas fa-check-circle"></i> Global Alumni Network</li>
+            </ul>
+        </div>
+        
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="form-header">
+                <h2>Create Account</h2>
+                <p>Register to access VIT-AP University services</p>
+            </div>
+
+            <!-- Summary error box (for "show all errors") -->
+            <div id="formSummaryError" class="form-summary-error"></div>
+            
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <small id="fullNameError" class="error-message"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <small id="emailError" class="error-message"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required maxlength="10" inputmode="numeric">
+                    </div>
+                    <small id="phoneError" class="error-message"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <small id="passwordError" class="error-message"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                    <small id="confirmPasswordError" class="error-message"></small>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="agreeTerms">
+                    <label for="agreeTerms">I agree to the <a>Terms of Service</a> and <a>Privacy Policy</a> of VIT-AP University</label>
+                </div>
+                <small id="termsError" class="error-message"></small>
+                
+                <button type="submit" class="submit-btn">
+                    Register Now <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="login-link">
+                    Already have an account? <a>Sign In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- External JS file -->
+    <script src="script.js"></script>
+</body>
+</html>
