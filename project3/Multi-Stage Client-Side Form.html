@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multi-Stage Form</title>
+<style>
+  .stage { display: none; }
+  .active { display: block; }
+  .error { color: red; font-size: 0.9em; }
+
+  .progress {
+    width: 100%;
+    height: 25px;
+    background: #ddd;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: green;
+    color: white;
+    text-align: center;
+    line-height: 25px;
+    transition: width 0.3s ease;
+  }
+</style>
+</head>
+<body>
+
+<h2>Multi-Step Form</h2>
+
+<div class="progress">
+  <div id="progressBar" class="progress-bar">0%</div>
+</div>
+
+<form>
+  <div class="stage active">
+    <input type="text" id="name" placeholder="Name">
+    <div class="error"></div>
+  </div>
+
+  <div class="stage">
+    <input type="email" id="email" placeholder="Email">
+    <div class="error"></div>
+  </div>
+
+  <div class="stage">
+    <input type="password" id="password" placeholder="Password">
+    <div class="error"></div>
+  </div>
+
+  <div class="stage">
+    <input type="number" id="age" placeholder="Age">
+    <div class="error"></div>
+  </div>
+</form>
+
+<br>
+<button onclick="prevStage()">Previous</button>
+<button onclick="nextStage()">Next</button>
+
+<script>
+const stages = document.querySelectorAll(".stage");
+const progressBar = document.getElementById("progressBar");
+let currentStage = 0;
+
+let formData = {};
+
+function updateProgress() {
+  // Progress is based on completed stages, not current index
+  const totalStages = stages.length;
+  const completedStages = currentStage; // only count completed stages
+  const percent = Math.round((completedStages / totalStages) * 100);
+  progressBar.style.width = percent + "%";
+  progressBar.textContent = percent + "%";
+}
+
+function showStage(index) {
+  stages.forEach((stage, i) => {
+    stage.classList.toggle("active", i === index);
+  });
+  updateProgress();
+}
+
+function validateStage() {
+  const stage = stages[currentStage];
+  const input = stage.querySelector("input");
+  const error = stage.querySelector(".error");
+  error.textContent = "";
+
+  if (input.value.trim() === "") {
+    error.textContent = "This field is required";
+    return false;
+  }
+
+  if (input.type === "email" && !input.value.includes("@")) {
+    error.textContent = "Invalid email";
+    return false;
+  }
+
+  if (input.type === "password" && input.value.length < 6) {
+    error.textContent = "Minimum 6 characters";
+    return false;
+  }
+
+  if (input.type === "number" && input.value < 18) {
+    error.textContent = "Age must be 18 or above";
+    return false;
+  }
+
+  formData[input.id] = input.value;
+  return true;
+}
+
+function nextStage() {
+  if (!validateStage()) return;
+
+  if (currentStage < stages.length - 1) {
+    currentStage++;
+    showStage(currentStage);
+  } else {
+    // Only reach 100% when submitting the final stage
+    progressBar.style.width = "100%";
+    progressBar.textContent = "100%";
+    alert("Form Submitted Successfully\n\n" + JSON.stringify(formData, null, 2));
+  }
+}
+
+function prevStage() {
+  if (currentStage > 0) {
+    currentStage--;
+    showStage(currentStage);
+  }
+}
+
+updateProgress();
+</script>
+
+</body>
+</html>
