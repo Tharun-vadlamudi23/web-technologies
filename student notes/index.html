@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Notes Manager</title>
+</head>
+
+<body>
+
+<h2>Add Note</h2>
+
+<input id="title" placeholder="Title"><br>
+<input id="subject" placeholder="Subject"><br>
+<textarea id="description" placeholder="Description"></textarea><br>
+
+<button onclick="addNote()">Add Note</button>
+
+<h2>Notes List</h2>
+
+<div id="notes"></div>
+
+<script>
+
+function addNote(){
+
+fetch("http://localhost:3000/notes",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+title:document.getElementById("title").value,
+subject:document.getElementById("subject").value,
+description:document.getElementById("description").value
+})
+})
+.then(()=>loadNotes())
+
+}
+
+function loadNotes(){
+
+fetch("http://localhost:3000/notes")
+.then(res=>res.json())
+.then(data=>{
+
+let output="";
+
+data.forEach(note=>{
+
+output += `
+<div>
+<h3>${note.title}</h3>
+<p>${note.subject}</p>
+<p>${note.description}</p>
+<button onclick="deleteNote('${note._id}')">Delete</button>
+</div>
+`;
+
+});
+
+document.getElementById("notes").innerHTML = output;
+
+})
+
+}
+
+function deleteNote(id){
+
+fetch("http://localhost:3000/notes/"+id,{
+method:"DELETE"
+})
+.then(()=>loadNotes())
+
+}
+
+loadNotes();
+
+</script>
+
+</body>
+</html>

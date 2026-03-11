@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Book Finder</title>
+<style>
+body{
+font-family: Arial;
+margin:40px;
+}
+
+button{
+margin:5px;
+padding:6px 10px;
+}
+
+.book{
+border:1px solid #ccc;
+padding:10px;
+margin:10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Online Book Finder</h1>
+
+<h3>Search Book</h3>
+<input id="searchTitle" placeholder="Enter title">
+<button onclick="searchBook()">Search</button>
+
+<h3>Filter by Category</h3>
+<button onclick="filterCategory('Programming')">Programming</button>
+<button onclick="filterCategory('Database')">Database</button>
+<button onclick="filterCategory('AI')">AI</button>
+
+<h3>Sort Books</h3>
+<button onclick="sortPrice()">Sort by Price</button>
+<button onclick="sortRating()">Sort by Rating</button>
+
+<h3>Top Rated Books</h3>
+<button onclick="topRated()">Show Top Books</button>
+
+<h3>Pagination</h3>
+<button onclick="loadPage(1)">Page 1</button>
+<button onclick="loadPage(2)">Page 2</button>
+
+<h2>Books</h2>
+<div id="books"></div>
+
+<script>
+
+function displayBooks(data){
+
+let output="";
+
+data.forEach(book=>{
+
+output+=`
+<div class="book">
+<h3>${book.title}</h3>
+<p><b>Author:</b> ${book.author}</p>
+<p><b>Category:</b> ${book.category}</p>
+<p><b>Price:</b> ${book.price}</p>
+<p><b>Rating:</b> ${book.rating}</p>
+</div>
+`;
+
+});
+
+document.getElementById("books").innerHTML=output;
+
+}
+
+
+// SEARCH
+function searchBook(){
+
+let title=document.getElementById("searchTitle").value;
+
+fetch("http://localhost:3000/books/search?title="+title)
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+
+// FILTER CATEGORY
+function filterCategory(category){
+
+fetch("http://localhost:3000/books/category/"+category)
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+
+// SORT PRICE
+function sortPrice(){
+
+fetch("http://localhost:3000/books/sort/price")
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+
+// SORT RATING
+function sortRating(){
+
+fetch("http://localhost:3000/books/sort/rating")
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+
+// TOP RATED
+function topRated(){
+
+fetch("http://localhost:3000/books/top")
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+
+// PAGINATION
+function loadPage(page){
+
+fetch("http://localhost:3000/books?page="+page)
+.then(res=>res.json())
+.then(data=>displayBooks(data));
+
+}
+
+</script>
+
+</body>
+</html>
