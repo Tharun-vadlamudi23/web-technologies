@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student App</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        input { margin: 5px; padding: 5px; }
+        button { margin: 5px; padding: 5px 10px; }
+    </style>
+</head>
+
+<body>
+
+<h2>Add Student</h2>
+
+<input id="name" placeholder="Name">
+<input id="dept" placeholder="Department">
+<input id="marks" placeholder="Marks" type="number">
+<button onclick="addStudent()">Add</button>
+
+<h2>Student List</h2>
+<div id="students"></div>
+
+<script>
+
+let students = [
+    { id: 1, name: "Priya", department: "CSE", marks: 92 }
+];
+
+let editIndex = -1;
+
+// Grade function
+const getGrade = (marks) => {
+    if (marks >= 90) return "A";
+    else if (marks >= 75) return "B";
+    else if (marks >= 50) return "C";
+    else return "F";
+};
+
+// Add student
+function addStudent() {
+
+    let name = document.getElementById("name").value;
+    let dept = document.getElementById("dept").value;
+    let marks = Number(document.getElementById("marks").value);
+
+    if (editIndex === -1) {
+        students.push({
+            id: students.length + 1,
+            name,
+            department: dept,
+            marks
+        });
+    } else {
+        students[editIndex] = {
+            ...students[editIndex],
+            name,
+            department: dept,
+            marks
+        };
+        editIndex = -1;
+    }
+
+    document.getElementById("name").value = "";
+    document.getElementById("dept").value = "";
+    document.getElementById("marks").value = "";
+
+    displayStudents();
+}
+
+// Display students
+function displayStudents() {
+
+    let output = "";
+
+    students.forEach((s, index) => {
+
+        output += `
+        <div class="card">
+            <b>${s.name}</b><br>
+            <button onclick="showDetails(${index})">Details</button>
+            <button onclick="editStudent(${index})">Edit</button>
+            <div id="details${index}"></div>
+        </div>
+        `;
+    });
+
+    document.getElementById("students").innerHTML = output;
+}
+
+// Show details
+function showDetails(index) {
+
+    const updatedStudent = {
+        ...students[index],
+        grade: getGrade(students[index].marks)
+    };
+
+    document.getElementById(`details${index}`).innerHTML = `
+        ID: ${updatedStudent.id} <br>
+        Name: ${updatedStudent.name} <br>
+        Department: ${updatedStudent.department} <br>
+        Marks: ${updatedStudent.marks} <br>
+        Grade: ${updatedStudent.grade}
+    `;
+}
+
+// Edit student
+function editStudent(index) {
+
+    let s = students[index];
+
+    document.getElementById("name").value = s.name;
+    document.getElementById("dept").value = s.department;
+    document.getElementById("marks").value = s.marks;
+
+    editIndex = index;
+}
+
+// Initial load
+displayStudents();
+
+</script>
+
+</body>
+</html>

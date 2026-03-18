@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Enrollment</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        input { margin: 5px; padding: 5px; }
+        button { margin: 5px; padding: 6px 12px; }
+    </style>
+</head>
+
+<body>
+
+<h2>Course Enrollment System</h2>
+
+<button onclick="showForm()">Enroll</button>
+
+<div id="form"></div>
+<div id="output"></div>
+
+<script>
+
+// ES6 Class
+class Course {
+    constructor(courseName, instructor) {
+        this.courseName = courseName;
+        this.instructor = instructor;
+    }
+
+    displayCourse() {
+        return `Course: ${this.courseName}, Instructor: ${this.instructor}`;
+    }
+}
+
+// Show form when clicking Enroll
+function showForm() {
+
+    document.getElementById("form").innerHTML = `
+        <h3>Enter Course Details</h3>
+        <input id="course" placeholder="Course Name"><br>
+        <input id="instructor" placeholder="Instructor Name"><br>
+        <button onclick="enroll()">Submit</button>
+    `;
+}
+
+// Enrollment logic
+function enroll() {
+
+    let courseName = document.getElementById("course").value;
+    let instructor = document.getElementById("instructor").value;
+
+    let course1 = new Course(courseName, instructor);
+
+    let enrollCourse = new Promise((resolve, reject) => {
+
+        let seatsAvailable = Math.random() > 0.5; // random true/false
+
+        if (seatsAvailable)
+            resolve("Enrollment Successful");
+        else
+            reject("Course Full");
+    });
+
+    enrollCourse
+        .then(msg => {
+            document.getElementById("output").innerHTML =
+                `${course1.displayCourse()} <br><b>${msg}</b>`;
+        })
+        .catch(err => {
+            document.getElementById("output").innerHTML =
+                `${course1.displayCourse()} <br><b>${err}</b>`;
+        });
+}
+
+</script>
+
+</body>
+</html>
