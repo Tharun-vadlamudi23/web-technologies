@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Profile - React</title>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: left;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    // Functional Component
+    function StudentProfile() {
+
+      // Student Data Variables
+      const name = "Rahul Kumar";
+      const department = "Computer Science";
+      const year = "3rd Year";
+      const section = "A";
+
+      // JSX UI
+      return (
+        <div className="card">
+          <h1>Student Profile</h1>
+          <p><span className="label">Name:</span> {name}</p>
+          <p><span className="label">Department:</span> {department}</p>
+          <p><span className="label">Year:</span> {year}</p>
+          <p><span className="label">Section:</span> {section}</p>
+        </div>
+      );
+    }
+
+    // Root Component
+    function App() {
+      return (
+        <div>
+          <StudentProfile />
+        </div>
+      );
+    }
+
+    // Render to DOM
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+
+  </script>
+</body>
+</html>
