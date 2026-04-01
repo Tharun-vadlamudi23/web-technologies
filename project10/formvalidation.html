@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>React Form Validation</title>
+
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin: 2px 0 8px 0;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    function UserForm() {
+
+      // State for inputs
+      const [name, setName] = React.useState("");
+      const [email, setEmail] = React.useState("");
+      const [password, setPassword] = React.useState("");
+
+      // State for errors
+      const [errors, setErrors] = React.useState({});
+      const [success, setSuccess] = React.useState("");
+
+      // Validation Function
+      const validate = () => {
+        let tempErrors = {};
+
+        if (!name.trim()) {
+          tempErrors.name = "Name is required";
+        }
+
+        if (!email.trim()) {
+          tempErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+          tempErrors.email = "Invalid email format";
+        }
+
+        if (!password.trim()) {
+          tempErrors.password = "Password is required";
+        } else if (password.length < 6) {
+          tempErrors.password = "Password must be at least 6 characters";
+        }
+
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+      };
+
+      // Handle Submit
+      const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validate()) {
+          setSuccess("Form submitted successfully!");
+
+          // Reset fields
+          setName("");
+          setEmail("");
+          setPassword("");
+          setErrors({});
+        } else {
+          setSuccess("");
+        }
+      };
+
+      return (
+        <div className="form-container">
+          <h2>User Form</h2>
+
+          <form onSubmit={handleSubmit}>
+
+            {/* Name */}
+            <input
+              type="text"
+              placeholder="Enter Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {errors.name && <div className="error">{errors.name}</div>}
+
+            {/* Email */}
+            <input
+              type="text"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {errors.email && <div className="error">{errors.email}</div>}
+
+            {/* Password */}
+            <input
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {errors.password && <div className="error">{errors.password}</div>}
+
+            <button type="submit">Submit</button>
+          </form>
+
+          {/* Success Message */}
+          {success && <div className="success">{success}</div>}
+        </div>
+      );
+    }
+
+    // Root Component
+    function App() {
+      return <UserForm />;
+    }
+
+    // Render
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+
+  </script>
+</body>
+</html>
