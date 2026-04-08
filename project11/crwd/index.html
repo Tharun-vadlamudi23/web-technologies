@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Operations</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: darkblue;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Node.js File Operations 📁</h1>
+
+    <button onclick="performAction('/create')">Create File</button>
+    <button onclick="performAction('/read')">Read File</button>
+    <button onclick="performAction('/append')">Append File</button>
+    <button onclick="performAction('/delete')">Delete File</button>
+
+    <p id="result"></p>
+
+    <script>
+        function performAction(route) {
+            fetch(route)
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById("result").innerText = data;
+                });
+        }
+    </script>
+
+</body>
+</html>
